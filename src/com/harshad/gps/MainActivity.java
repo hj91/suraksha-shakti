@@ -160,6 +160,7 @@ public String GetAddress(String lat, String lon)
 				ret = strReturnedAddress.toString();
 				str4=ret;
 				Toast.makeText(this, str4, Toast.LENGTH_LONG).show();
+				appendLog(str4);
 			}
 			else{
 				Toast.makeText(this,str4,10000).show();
@@ -172,6 +173,36 @@ public String GetAddress(String lat, String lon)
 		}
 		return ret;
 	}
+  //added on 7 december 2014 - harshad joshi
+  public void appendLog(String text)
+  {       
+     File logFile = new File("sdcard/gpslog.txt"); //this is hardcoded for testing. ToDo - add dynamic determination of storage
+     if (!logFile.exists())
+     {
+        try
+        {
+           logFile.createNewFile();
+        } 
+        catch (IOException e)
+        {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+        }
+     }
+     try
+     {
+        //BufferedWriter for performance, true to set append to file flag
+        BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
+        buf.append(text);
+        buf.newLine();
+        buf.close();
+     }
+     catch (IOException e)
+     {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+     }
+  }
   
   public void onClick(View v)
   {
